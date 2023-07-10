@@ -1,0 +1,8 @@
+$example = new Apps\Models\example ini untuk deklarasi variable di artisan tinker
+$example::find(2)->update(['nama kolom' => 'isi nama kolom']) command ini berfungsi untuk update nama kolom
+$post::create([
+    'title' => 'Isekai Meikyuu de Harem wo',
+    'slug' => 'Slug Isekai Meikyuu de Harem wo',
+    'excerpt' => 'Seorang pria hendak bunuh diri dan memutuskan untuk mencari cara untuk mati di internet. Tapi tiba-tiba ia menemukan situs aneh yang mengajukan banyak pertanyaan dan memiliki sistem berbasis titik yang memungkinkan menciptakan keterampilan dan kemampuan untuk karakter.',
+    'body' => '<p>Seorang pria hendak bunuh diri dan memutuskan untuk mencari cara untuk mati di internet. Tapi tiba-tiba ia menemukan situs aneh yang mengajukan banyak pertanyaan dan memiliki sistem berbasis titik yang memungkinkan menciptakan keterampilan dan kemampuan untuk karakter.</p><p>Pria tersebut pun tertarik padanya dan ketika ia selesai mengatur karakternya. Ia ditanya, Kamu sekarang akan diangkut ke dunia dengan pengaturan yang kamu pilih, kembali tidak mungkin, apakah kamu masih menerima. Kemudian, tanpa memikirkan banyak hal, ia menekan Ya, dan ia terlempar ke dunia lain dengan keterampilan dan kemampuan yang sudah ia pilih.</p>'
+]) ini untuk create
