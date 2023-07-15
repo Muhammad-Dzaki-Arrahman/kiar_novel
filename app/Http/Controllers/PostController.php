@@ -31,7 +31,7 @@ class PostController extends Controller
     {
         return view('author', [
             "title" => "Single Author",
-            "auth" => $author->post
+            "auth" => $author->post->load('category', 'author')
         ]);
     }
 }

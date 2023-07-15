@@ -1,4 +1,8 @@
 @extends('layouts.main')
+@section('style')
+<link rel="shortcut icon" href="image/Girl.png">
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+@endsection
 @section('container')
     <h1>Novel Category : {{ $category }}</h1>
     @foreach ($desc as $deskripsi)

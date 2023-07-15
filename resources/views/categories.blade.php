@@ -1,4 +1,8 @@
 @extends('layouts.main')
+@section('style')
+<link rel="shortcut icon" href="image/Girl.png">
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+@endsection
 @section('container')
     <h1 class="mb-5">Category List</b></h1>
     @foreach ($categories as $list)
@@ -8,5 +12,5 @@
         </li>
     </ul>
     @endforeach
-    <a href="/gallery" class="text-decoration-none">Back to gallery</a>
+    <a href="/gallery" class="text-decoration-none"><h6 class="bgl">Back to gallery</h6></a>
 @endsection
