@@ -14,11 +14,14 @@
             <div class="col-md-4">
                 <div class="flip-card-container" style="--hue: 220">
                     <div class="cat-flip-card flex">
-                  
                       <div class="cat-card-front">
                         <figure>
                           <div class="cat-img-bg"></div>
-                          <img src="https://picsum.photos/500/500" alt="{{ $list->name }}" class="cat-img">
+                          @if($novel->count()){
+                          <img src="{{ asset('storage/'.$list->image) }}" alt="{{ $list->name }}" class="cat-img">
+                          }@else
+                            <img src="https://picsum.photos/500/500" alt="{{ $list->name }}" class="cat-img">
+                          @endif
                           <figcaption><a href="/categories/{{ $list->slug }}" class="text-decoration-none">{{ $list->name }}</a></figcaption>
                         </figure>
                   

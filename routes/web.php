@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCategoryController;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
@@ -8,6 +9,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardNovelController;
+use Illuminate\Routing\Router;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,10 +44,11 @@ Route::get('/gallery', [PostController::class, 'index']);
 Route::get('/post/{desc:slug}', [PostController::class, 'show_detail']); // cara 2
 //Route::get('/post/{post}', function (Post $post)); 
 
-Route::get('/categories', function () {
+Route::get('/categories', function (Category $category) {
     return view('categories', [
         'title' => 'Categories',
-        'categories' => Category::all()
+        'categories' => Category::all(),
+        'novel' => $category->post->load('author', 'category')
     ]);
 });
 
@@ -68,3 +71,6 @@ Route::get('/dashboard', function () {
 
 Route::get('/dashboard/post/checkSlug', [DashboardNovelController::class, 'checkSlug'])->middleware('auth');
 Route::resource('/dashboard/post', DashboardNovelController::class)->middleware('auth'); // sesuaikan nama nya menikuti nama model
+
+Route::get('/dashboard/category/checkSlug', [AdminCategoryController::class, 'checkSlug'])->middleware('admin');
+Route::resource('/dashboard/category', AdminCategoryController::class)->except('show')->middleware('admin');

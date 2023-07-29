@@ -55,7 +55,7 @@ class Post extends Model
         return $this->belongsTo(User::class, 'user_id'); //belongsTo digunakan untuk relasi one to one
     }
 
-    public function getRouteKeyName()
+    public function getRouteKeyName() // gunakan ini agar tidak merujuk pada id di url
     {
         return 'slug';
     }
@@ -64,7 +64,7 @@ class Post extends Model
     {
         return [
             'slug' => [
-                'source' => 'title'
+                'source' => 'title' // membuat slug otomatis berdasarkan name = "title" 
             ]
         ];
     }

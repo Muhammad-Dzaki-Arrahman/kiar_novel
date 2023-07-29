@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Kiar Blog | {{ $title }}</title>
-    <link rel="shortcut icon" href="../../image/Girl.png">
+    <link rel="shortcut icon" href="../../../image/Girl.png">
     {{-- <link rel="stylesheet" href="../fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="../css/login.css"> --}}
     @vite('resources/css/app.css')
@@ -17,6 +17,7 @@
         display: none;
       }
     </style>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
 </head>
 <body class="flex bg-gray-100 min-h-screen">
     @include('author.layouts.sidebar')
@@ -26,5 +27,5 @@
         @yield('container')
       </main>
     </div>
-    <script src="../../js/salam.js"></script>
+    <script src="../../../../js/salam.js"></script>
   </body>

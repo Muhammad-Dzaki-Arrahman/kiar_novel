@@ -6,6 +6,7 @@
 @section('container')
     <h1 class="text-3xl text-center bg-gradient-to-r from-emerald-800 to-sky-800 bg-clip-text text-transparent bg-center">Novel Category : {{ $category }}</h1>
 
+    @if($desc->count()){
     <div class="row justify-content-center mt-5 mb-2">
         <div class="col-md-6">
             <form action="/gallery?={{ $desc[0]->category->slug }}">
@@ -31,7 +32,11 @@
                       <div class="cat-card-front">
                         <figure>
                           <div class="cat-img-bg"></div>
+                          @if ($deskripsi->image)
+                          <img class="cat-img" src="{{ asset('storage/' . $deskripsi->image) }}" alt="Image Title"/>
+                          @else
                           <img src="https://picsum.photos/500/500" alt="{{ $deskripsi->title }}" class="cat-img">
+                          @endif
                           <figcaption class="text-center ml-3"><a href="/post/{{ $deskripsi->slug }}" class="text-decoration-none ">{{ $deskripsi->title }}</a></figcaption>
                         </figure>
                   
@@ -43,7 +48,11 @@
                       <div class="cat-card-back">
                         <figure>
                           <div class="cat-img-bg"></div>
-                          <img src="https://picsum.photos/500/500" alt="Brohm Lake" class="cat-img">
+                          @if ($deskripsi->image)
+                          <img class="cat-img" src="{{ asset('storage/' . $deskripsi->image) }}" alt="Image Title"/>
+                          @else
+                          <img src="https://picsum.photos/500/500" alt="{{ $deskripsi->title }}" class="cat-img">
+                          @endif
                         </figure>
                   
                         <button class="cat-button"><a href="/post/{{ $deskripsi->slug }}">View More</a></button>
@@ -66,5 +75,8 @@
             @endforeach
         </div>
     </div>
+  }@else
+    <p class="text-center text-amber-800 text-5xl m-auto">No Data Found.</p>
+  @endif
     <a href="/categories" class=" text-decoration-none ">Category List</a>
 @endsection

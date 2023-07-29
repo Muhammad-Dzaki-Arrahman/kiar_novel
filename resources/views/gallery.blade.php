@@ -17,11 +17,19 @@
             </form>
         </div>
     </div>
+    {{-- style="background-repeat: no-repeat; background-position: center; object-fit: contain; background-blend-mode: multiply; background-image: url('{{ asset('storage/'. $blog[0]->image) }}');" --}}
     @if ($blog->count()) 
     <div class="card mb-3 mx-16">
-        <img src="../image/IMSS2.jpeg" class="card-img-top p-3 -my-2" alt="..." width="100" height="100">
+        <div class="flex items-center justify-center ">
+        @if ($blog[0]->image)
+        <img class="p-3 -my-2 -mr-2 object-contain aspect-auto max-w-sm" src="{{ asset('storage/' . $blog[0]->image) }}" alt="Image Title"/>
+        @else
+        <img class="card-img-top p-3 -my-2" src="https://picsum.photos/800/450" alt="Image Title"/>
+        @endif
+        </div>
+        {{-- <img src="../image/IMSS2.jpeg" class="card-img-top p-3 -my-2" alt="..." width="100" height="100"> --}}
         <div class="card-body text-center">
-          <h5 class="card-title">{{ $blog[0]->title }}</h5>
+          <h5 class="card-title -mt-2">{{ $blog[0]->title }}</h5>
           <div class="mb-1 text-center">
             <div class="fs-4">
                 <p><small class="text-muted">Category : <a href="/categories/{{ $blog[0]->category->slug }}?category={{ $blog[0]->category->slug }}" class="text-decoration-none text-amber-950">{{ $blog[0]->Category->name }}</a></small></p> 
@@ -49,8 +57,12 @@
             @foreach ($blog->skip(1) as $desc)
             @if ($desc->id % 2 == 1)
             <article class="postcard light blue">
-                <a class="postcard__img_link" href="#">
-                    <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title"/>
+                <a class="postcard__img_link" href="/post/{{ $desc->slug }}">
+                    @if ($desc->image)
+                    <img class="postcard__img my-6 w-52" src="{{ asset('storage/' . $desc->image) }}" alt="Image Title"/>
+                    @else
+                    <img class="postcard__img my-6" src="https://picsum.photos/1000/1000" alt="Image Title"/>
+                    @endif
                 </a>
                 <div class="postcard__text t-dark">
                     <h1 class="postcard__title blue mb-2"><a href="/post/{{ $desc->slug }}">{{ $desc->title }}</a></h1>
@@ -80,8 +92,12 @@
             </article>
             @else
             <article class="postcard light red">
-                <a class="postcard__img_link" href="#">
-                    <img class="postcard__img" src="https://picsum.photos/501/500" alt="Image Title" />	
+                <a class="postcard__img_link" href="/post/{{ $desc->slug }}">
+                    @if ($desc->image)
+                    <img class="postcard__img my-6 w-52" src="{{ asset('storage/' . $desc->image) }}" alt="Image Title"/>
+                    @else
+                    <img class="postcard__img my-6" src="https://picsum.photos/501/500" alt="Image Title" />
+                    @endif
                 </a>
                 <div class="postcard__text t-dark">
                     <h1 class="postcard__title red mb-1"><a href="/post/{{ $desc->slug }}">{{ $desc->title }}</a></h1>

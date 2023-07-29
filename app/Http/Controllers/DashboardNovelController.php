@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class DashboardNovelController extends Controller
@@ -38,12 +38,19 @@ class DashboardNovelController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->file('images')->store('novel-images');
+
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'slug' => 'required|unique:posts',
             'category_id' => 'required',
+            'image' => 'image',
             'body' => 'required'
         ]);
+
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('novel-images');
+        }
 
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 100);
@@ -60,7 +67,7 @@ class DashboardNovelController extends Controller
     {
         return view('author.novels.show', [
             'title' => 'Novel',
-            'detail' => $post
+            'novel' => $post
         ]);
     }
 
@@ -69,7 +76,11 @@ class DashboardNovelController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('author.novels.edit', [
+            'title' => 'Edit Novel',
+            'categories' => Category::all(),
+            'novel' => $post
+        ]);
     }
 
     /**
@@ -77,7 +88,30 @@ class DashboardNovelController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $rules = [
+            'title' => 'required|max:255',
+            'category_id' => 'required',
+            'image' => 'image',
+            'body' => 'required'
+        ];
+        if ($request->slug != $post->slug) {
+            $rules['slug'] = 'required|unique:posts';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        if ($request->file('image')) {
+            if($post->image != null) Storage::delete($post->image);
+            $validatedData['image'] = $request->file('image')->store('novel-images');
+        }
+
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 100);
+
+        Post::where('id', $post->id)
+            ->update($validatedData);
+
+        return redirect('/dashboard/post')->with('Success', 'Succesfully Update Novel');
     }
 
     /**
@@ -85,7 +119,9 @@ class DashboardNovelController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        if($post->image) Storage::delete($post->image);
+        Post::destroy($post->id);
+        return redirect('/dashboard/post')->with('Success', 'Novel Deleted');
     }
 
     public function checkSlug(Request $request)

@@ -2,7 +2,11 @@
 export default {
     content: ["././resources/**/*.blade.php"],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                garamond: ["Garamond"],
+            },
+        },
     },
     plugins: [],
 };
