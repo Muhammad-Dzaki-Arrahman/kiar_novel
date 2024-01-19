@@ -17,9 +17,9 @@
                       <div class="cat-card-front">
                         <figure>
                           <div class="cat-img-bg"></div>
-                          @if($novel->count()){
-                          <img src="{{ asset('storage/'.$list->image) }}" alt="{{ $list->name }}" class="cat-img">
-                          }@else
+                          @if($novel->count() < $novel->count()-1)
+                          <img src="{{ asset('storage/'.$novel[$list->id]->image) }}" alt="{{ $list->name }}" class="cat-img">
+                          @else
                             <img src="https://picsum.photos/500/500" alt="{{ $list->name }}" class="cat-img">
                           @endif
                           <figcaption><a href="/categories/{{ $list->slug }}" class="text-decoration-none">{{ $list->name }}</a></figcaption>
@@ -37,7 +37,11 @@
                       <div class="cat-card-back">
                         <figure>
                           <div class="cat-img-bg"></div>
-                          <img src="https://picsum.photos/500/500" alt="Brohm Lake" class="cat-img">
+                          @if($novel->count())
+                          <img src="{{ asset('storage/'.$novel[0]->image) }}" alt="{{ $list->name }}" class="cat-img">
+                          @else
+                            <img src="https://picsum.photos/500/500" alt="{{ $list->name }}" class="cat-img">
+                          @endif
                         </figure>
                   
                         <button class="cat-button"><a href="/categories/{{ $list->name }}?category={{ $list->name }}">View More</a></button>

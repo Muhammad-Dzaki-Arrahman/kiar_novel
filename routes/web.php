@@ -48,7 +48,7 @@ Route::get('/categories', function (Category $category) {
     return view('categories', [
         'title' => 'Categories',
         'categories' => Category::all(),
-        'novel' => $category->post->load('author', 'category')
+        'novel' => Post::inRandomOrder()->where('image', '!=' ,NULL)->get()
     ]);
 });
 
